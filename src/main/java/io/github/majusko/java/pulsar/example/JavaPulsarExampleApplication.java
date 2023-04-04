@@ -63,14 +63,16 @@ public class JavaPulsarExampleApplication {
     public static void send3(PulsarTemplate<String> pulsarTemplate) {
         try {
             // 批量发送消息，测试订阅类型
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < 5; i++) {
                 String key = "k" + i;
-                String value = "v" + i;
                 String orderingKey = "ok" + i;
-                TypedMessageBuilder<String> builder = pulsarTemplate.createMessage(Topics.STRING, value);
-                builder.key(key)
-                        .orderingKey(orderingKey.getBytes())
-                        .send();
+                for (int j = 0; j < 2; j++) {
+                    String value = key + "-" + "v" + j;
+                    TypedMessageBuilder<String> builder = pulsarTemplate.createMessage(Topics.STRING, value);
+                    builder.key(key)
+                            .orderingKey(orderingKey.getBytes())
+                            .send();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

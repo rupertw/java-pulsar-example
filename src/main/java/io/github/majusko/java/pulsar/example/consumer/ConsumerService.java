@@ -15,14 +15,14 @@ public class ConsumerService {
     public AtomicBoolean stringReceived = new AtomicBoolean(false);
     public AtomicBoolean classReceived = new AtomicBoolean(false);
 
-    @PulsarConsumer(topic = Topics.STRING, clazz = String.class, subscriptionType = SubscriptionType.Shared,
+    @PulsarConsumer(topic = Topics.STRING, clazz = String.class, subscriptionType = SubscriptionType.Key_Shared,
             subscriptionName = "subscription1", consumerName = "consumeString1", initialPosition = SubscriptionInitialPosition.Latest)
     public void consumeString(String message) {
         System.out.println(String.format("接收消息: 内容[%s], 时间[%s]", message, new Date()));
         stringReceived.set(true);
     }
 
-    @PulsarConsumer(topic = Topics.CLASS, clazz = MyMsg.class)
+    @PulsarConsumer(topic = Topics.CLASS, clazz = MyMsg.class, subscriptionType = SubscriptionType.Shared)
     public void consumeClass(MyMsg message) {
         System.out.println(message.getData());
         classReceived.set(true);
