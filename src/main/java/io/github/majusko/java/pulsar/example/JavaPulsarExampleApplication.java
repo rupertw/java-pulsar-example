@@ -14,18 +14,21 @@ import java.util.Date;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * pulsar-java-spring-boot-starter使用参考 https://github.com/majusko/pulsar-java-spring-boot-starter
+ */
 @SpringBootApplication
 public class JavaPulsarExampleApplication {
 
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(JavaPulsarExampleApplication.class, args);
 
-//        ProducerService producerService = applicationContext.getBean(ProducerService.class);
-//        send1(producerService);
+        ProducerService producerService = applicationContext.getBean(ProducerService.class);
+        send1(producerService);
 
-        PulsarTemplate<String> pulsarTemplate = applicationContext.getBean(PulsarTemplate.class);
+//        PulsarTemplate<String> pulsarTemplate = applicationContext.getBean(PulsarTemplate.class);
 //        send2(pulsarTemplate);
-        send3(pulsarTemplate);
+//        send3(pulsarTemplate);
     }
 
     public static void send1(ProducerService producerService) {
