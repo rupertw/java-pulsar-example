@@ -55,6 +55,8 @@ public class JavaPulsarExampleApplication {
             builder.key("k1")
                     .orderingKey("k1".getBytes())
                     .property("n1", "v1")
+                    // Only shared (include key-shared) subscriptions support delayed message delivery.
+                    // In other subscriptions, delayed messages are dispatched immediately.
                     .deliverAfter(1, TimeUnit.MINUTES)
                     .send();
             System.out.println(String.format("发送消息: 内容[%s], 时间[%s]", value, new Date()));
